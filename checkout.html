@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FPO Bazar | Checkout</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:"Segoe UI",sans-serif; }
+    body { background:#f6fff8; color:#2d3436; }
+
+    header {
+      background:linear-gradient(90deg,#2d6a4f,#52b788);
+      padding:15px 5%;
+      display:flex; justify-content:space-between; align-items:center;
+      color:#fff; flex-wrap:wrap;
+    }
+    .logo { font-size:1.5rem; font-weight:bold; }
+    nav ul { list-style:none; display:flex; gap:20px; }
+    nav ul li a { color:#fff; text-decoration:none; font-weight:500; }
+    nav ul li a:hover { color:#d8f3dc; }
+
+    .checkout-container {
+      max-width:900px;
+      margin:40px auto;
+      background:#fff;
+      padding:25px;
+      border-radius:15px;
+      box-shadow:0 4px 8px rgba(0,0,0,0.1);
+    }
+    h2 { text-align:center; margin-bottom:20px; color:#1b4332; }
+
+    .summary {
+      margin-bottom:25px;
+      padding:15px;
+      background:#d8f3dc;
+      border-radius:10px;
+    }
+    .summary p { margin:8px 0; font-weight:500; }
+
+    form label { display:block; margin:10px 0 5px; font-weight:500; }
+    form input, form textarea {
+      width:100%; padding:10px; border:1px solid #ccc; border-radius:8px;
+      margin-bottom:15px;
+    }
+    form textarea { resize:vertical; height:80px; }
+
+    .btn {
+      background:#2d6a4f; color:#fff; padding:12px 25px;
+      border:none; border-radius:25px; cursor:pointer; font-weight:bold;
+      transition:0.3s;
+    }
+    .btn:hover { background:#1b4332; }
+
+    footer {
+      background:#2d6a4f; color:#fff; text-align:center; padding:20px; margin-top:30px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">🌿 FPO Bazar</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="catalogue.html">Catalogue</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="#">Checkout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="checkout-container">
+    <h2>Checkout</h2>
+
+    <div class="summary" id="order-summary">
+      <!-- Order summary will appear here -->
+    </div>
+
+    <form id="checkout-form">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" required>
+
+      <label for="phone">Phone Number</label>
+      <input type="text" id="phone" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email">
+
+      <label for="address">Delivery Address</label>
+      <textarea id="address" required></textarea>
+
+      <button type="submit" class="btn">Place Order</button>
+    </form>
+  </div>
+
+  <footer>
+    © 2025 FPO Bazar | All Rights Reserved
+  </footer>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    function renderSummary() {
+      let totalItems = 0, totalAmount = 0;
+      let summaryDiv = document.getElementById("order-summary");
+
+      if(cart.length === 0) {
+        summaryDiv.innerHTML = "<p>Your cart is empty. <a href='catalogue.html'>Go back to shop</a></p>";
+        document.getElementById("checkout-form").style.display="none";
+        return;
+      }
+
+      let html = "<h3>Order Summary</h3><ul>";
+      cart.forEach(item => {
+        totalItems += item.quantity;
+        totalAmount += item.price * item.quantity;
+        html += `<li>${item.name} - ${item.quantity} × ₹${item.price} = ₹${item.price * item.quantity}</li>`;
+      });
+      html += "</ul>";
+      html += `<p><strong>Total Items:</strong> ${totalItems}</p>`;
+      html += `<p><strong>Total Amount:</strong> ₹${totalAmount}</p>`;
+      summaryDiv.innerHTML = html;
+    }
+
+    document.getElementById("checkout-form").addEventListener("submit", function(e){
+      e.preventDefault();
+
+      const order = {
+        name: document.getElementById("name").value,
+        phone: document.getElementById("phone").value,
+        email: document.getElementById("email").value,
+        address: document.getElementById("address").value,
+        cart: cart,
+        date: new Date().toLocaleString()
+      };
+
+      // Save order to localStorage (in real app → send to backend)
+      let orders = JSON.parse(localStorage.getItem("orders")) || [];
+      orders.push(order);
+      localStorage.setItem("orders", JSON.stringify(orders));
+
+      alert("✅ Order placed successfully!\nThank you for shopping at FPO Bazar.");
+      localStorage.removeItem("cart"); // Clear cart
+      window.location.href = "home.html"; // Redirect to homepage
+    });
+
+    renderSummary();
+  </script>
+</body>
+</html>

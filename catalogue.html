@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FPO Bazar | Catalogue</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Segoe UI", sans-serif; }
+    body { background: #f6fff8; color: #2d3436; }
+
+    header {
+      background: linear-gradient(90deg, #2d6a4f, #52b788);
+      padding: 15px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+      flex-wrap: wrap;
+    }
+
+    .logo { font-size: 1.5rem; font-weight: bold; }
+
+    nav ul { list-style: none; display: flex; gap: 20px; }
+    nav ul li a { color: #fff; text-decoration: none; font-weight: 500; }
+    nav ul li a:hover { color: #d8f3dc; }
+
+    .cart {
+      background: #fff;
+      color: #1b4332;
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    /* Product Catalogue */
+    .catalogue { padding: 40px 10%; }
+    .catalogue h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2rem;
+      color: #1b4332;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+    .card:hover { transform: translateY(-5px); }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .card-content { padding: 15px; }
+    .card-content h3 { margin-bottom: 8px; color: #2d6a4f; }
+    .card-content p { font-size: 0.9rem; margin-bottom: 10px; color: #555; }
+    .price { font-weight: bold; margin-bottom: 10px; color: #1b4332; }
+    .btn {
+      background: #52b788;
+      color: #fff;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn:hover { background: #2d6a4f; }
+
+    footer {
+      background: #2d6a4f;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">🌿 FPO Bazar</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#">Catalogue</a></li>
+        <li><a href="brands.html">Brands</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cart.html">Cart</a></li>
+      </ul>
+    </nav>
+    <div class="cart" id="cart-info">🛒 Cart: 0 items | ₹0</div>
+  </header>
+
+  <section class="catalogue">
+    <h2>Our Products</h2>
+    <div class="products">
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1604754742629-3e6a26a6b523?auto=format&fit=crop&w=600&q=80" alt="Fresh Vegetables">
+        <div class="card-content">
+          <h3>Organic Vegetables</h3>
+          <p>Fresh & chemical-free vegetables directly from farms.</p>
+          <div class="price">₹120 / kg</div>
+          <button class="btn" onclick="addToCart('Organic Vegetables',120)">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1561043433-aaf687c4cf4e?auto=format&fit=crop&w=600&q=80" alt="Rice">
+        <div class="card-content">
+          <h3>Premium Rice</h3>
+          <p>High-quality, naturally grown rice.</p>
+          <div class="price">₹60 / kg</div>
+          <button class="btn" onclick="addToCart('Premium Rice',60)">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1590080876273-d0c6bb81b6d8?auto=format&fit=crop&w=600&q=80" alt="Honey">
+        <div class="card-content">
+          <h3>Natural Honey</h3>
+          <p>Pure and natural honey sourced from rural beekeepers.</p>
+          <div class="price">₹250 / jar</div>
+          <button class="btn" onclick="addToCart('Natural Honey',250)">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1622440304796-8c2a2d10e72e?auto=format&fit=crop&w=600&q=80" alt="Fruits">
+        <div class="card-content">
+          <h3>Fresh Fruits</h3>
+          <p>Seasonal fruits full of nutrition & taste.</p>
+          <div class="price">₹150 / kg</div>
+          <button class="btn" onclick="addToCart('Fresh Fruits',150)">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 FPO Bazar | All Rights Reserved
+  </footer>
+
+  <script>
+    // Load cart from localStorage
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    function addToCart(product, price) {
+      // Check if product already exists
+      let found = cart.find(item => item.name === product);
+      if(found) {
+        found.quantity++;
+      } else {
+        cart.push({ name: product, price: price, quantity: 1 });
+      }
+      saveCart();
+      alert(product + " added to cart!");
+    }
+
+    function saveCart() {
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartInfo();
+    }
+
+    function updateCartInfo() {
+      let totalItems = 0;
+      let totalAmount = 0;
+      cart.forEach(item => {
+        totalItems += item.quantity;
+        totalAmount += item.price * item.quantity;
+      });
+      document.getElementById("cart-info").textContent = 
+        `🛒 Cart: ${totalItems} items | ₹${totalAmount}`;
+    }
+
+    // Initialize cart info on page load
+    updateCartInfo();
+  </script>
+</body>
+</html>

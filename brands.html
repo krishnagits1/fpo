@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FPO Bazar | Brands</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:"Segoe UI",sans-serif; }
+    body { background:#f6fff8; color:#2d3436; }
+
+    header {
+      background:linear-gradient(90deg,#2d6a4f,#52b788);
+      padding:15px 5%;
+      display:flex; justify-content:space-between; align-items:center;
+      color:#fff; flex-wrap:wrap;
+    }
+    .logo { font-size:1.5rem; font-weight:bold; }
+    nav ul { list-style:none; display:flex; gap:20px; }
+    nav ul li a { color:#fff; text-decoration:none; font-weight:500; }
+    nav ul li a:hover { color:#d8f3dc; }
+
+    .brands-container {
+      max-width:1100px;
+      margin:40px auto;
+      padding:20px;
+    }
+    h2 { text-align:center; margin-bottom:30px; color:#1b4332; }
+
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+    }
+    .brand-card {
+      background:#fff;
+      border-radius:15px;
+      padding:20px;
+      box-shadow:0 4px 8px rgba(0,0,0,0.1);
+      text-align:center;
+      transition:transform 0.3s;
+    }
+    .brand-card:hover { transform:translateY(-5px); }
+    .brand-card img {
+      max-width:100px;
+      margin-bottom:15px;
+    }
+    .brand-card h3 {
+      margin-bottom:10px;
+      color:#2d6a4f;
+    }
+    .brand-card p {
+      font-size:0.95rem;
+      color:#555;
+    }
+
+    footer {
+      background:#2d6a4f; color:#fff; text-align:center; padding:20px; margin-top:30px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">🌿 FPO Bazar</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="catalogue.html">Catalogue</a></li>
+        <li><a href="#">Brands</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="admin-messages.html">Admin</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="brands-container">
+    <h2>Our Partner Brands</h2>
+    <div class="grid">
+      <div class="brand-card">
+        <img src="https://via.placeholder.com/100" alt="Brand A Logo">
+        <h3>Brand A</h3>
+        <p>Trusted partner for organic seeds and fertilizers supporting sustainable farming.</p>
+      </div>
+
+      <div class="brand-card">
+        <img src="https://via.placeholder.com/100" alt="Brand B Logo">
+        <h3>Brand B</h3>
+        <p>Providing high-quality farming tools and machinery for modern agriculture.</p>
+      </div>
+
+      <div class="brand-card">
+        <img src="https://via.placeholder.com/100" alt="Brand C Logo">
+        <h3>Brand C</h3>
+        <p>Specializing in natural crop protection and eco-friendly pesticides.</p>
+      </div>
+
+      <div class="brand-card">
+        <img src="https://via.placeholder.com/100" alt="Brand D Logo">
+        <h3>Brand D</h3>
+        <p>Export-oriented brand connecting farmers with global markets.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 FPO Bazar | All Rights Reserved
+  </footer>
+</body>
+</html>

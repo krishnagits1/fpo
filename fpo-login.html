@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FPO Bazar | FPO Login</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:"Segoe UI",sans-serif; }
+    body { background:#f6fff8; color:#2d3436; }
+
+    header {
+      background:linear-gradient(90deg,#2d6a4f,#52b788);
+      padding:15px 5%;
+      display:flex; justify-content:space-between; align-items:center;
+      color:#fff; flex-wrap:wrap;
+    }
+    .logo { font-size:1.5rem; font-weight:bold; }
+    nav ul { list-style:none; display:flex; gap:20px; }
+    nav ul li a { color:#fff; text-decoration:none; font-weight:500; }
+    nav ul li a:hover { color:#d8f3dc; }
+
+    .login-container {
+      max-width:400px;
+      margin:60px auto;
+      background:#fff;
+      padding:25px;
+      border-radius:15px;
+      box-shadow:0 4px 8px rgba(0,0,0,0.1);
+    }
+    h2 { text-align:center; margin-bottom:20px; color:#1b4332; }
+
+    form label { display:block; margin:10px 0 5px; font-weight:500; }
+    form input {
+      width:100%; padding:10px; border:1px solid #ccc; border-radius:8px;
+      margin-bottom:15px;
+    }
+
+    .btn {
+      background:#2d6a4f; color:#fff; padding:12px 25px;
+      border:none; border-radius:25px; cursor:pointer; font-weight:bold;
+      transition:0.3s; width:100%;
+    }
+    .btn:hover { background:#1b4332; }
+
+    .register-link {
+      text-align:center; margin-top:15px; font-size:0.9rem;
+    }
+    .register-link a { color:#2d6a4f; font-weight:bold; text-decoration:none; }
+    .register-link a:hover { text-decoration:underline; }
+
+    footer {
+      background:#2d6a4f; color:#fff; text-align:center; padding:20px; margin-top:30px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">🌿 FPO Bazar</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="catalogue.html">Catalogue</a></li>
+        <li><a href="brands.html">Brands</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="#">FPO Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="login-container">
+    <h2>FPO Login</h2>
+    <form id="fpo-login-form">
+      <label for="fpo-id">FPO ID / Email</label>
+      <input type="text" id="fpo-id" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" required>
+
+      <button type="submit" class="btn">Login</button>
+    </form>
+    <div class="register-link">
+      Don’t have an account? <a href="fpo-register.html">Register Here</a>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 FPO Bazar | All Rights Reserved
+  </footer>
+
+  <script>
+    // Demo: Pre-registered FPO accounts stored in localStorage
+    if(!localStorage.getItem("fpoAccounts")) {
+      let demoAccounts = [
+        { fpoId: "fpo123", password: "12345" },
+        { fpoId: "fpo456", password: "pass456" }
+      ];
+      localStorage.setItem("fpoAccounts", JSON.stringify(demoAccounts));
+    }
+
+    document.getElementById("fpo-login-form").addEventListener("submit", function(e){
+      e.preventDefault();
+
+      let fpoId = document.getElementById("fpo-id").value.trim();
+      let password = document.getElementById("password").value.trim();
+
+      let accounts = JSON.parse(localStorage.getItem("fpoAccounts")) || [];
+      let found = accounts.find(acc => (acc.fpoId === fpoId || acc.email === fpoId) && acc.password === password);
+
+      if(found) {
+        alert("✅ Login Successful! Redirecting to Dashboard...");
+        localStorage.setItem("fpoLoggedIn", JSON.stringify(found));
+        window.location.href = "fpo-dashboard.html";
+      } else {
+        alert("❌ Invalid FPO ID or Password!");
+      }
+    });
+  </script>
+</body>
+</html>
