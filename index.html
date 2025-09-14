@@ -8,12 +8,12 @@
 </head>
 <body>
 
-  <header>
+ <header>
     <div class="logo">🌿 FPO Bazar</div>
-    <div class="menu-toggle">☰</div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
     <nav>
-      <ul>
-        <li><a href="#">Home</a></li>
+      <ul id="nav-links">
+        <li><a href="home.html">Home</a></li>
         <li><a href="catalogue.html">Catalogue</a></li>
         <li><a href="brands.html">Brands</a></li>
         <li><a href="contact.html">Contact Us</a></li>
@@ -22,12 +22,26 @@
     </nav>
   </header>
 
-  <section class="hero">
+  <!-- Hero Image Slider -->
+  <section class="slider">
+    <div class="slide active" style="background-image:url('image/cover.png');"></div>
+    <div class="slide" style="background-image:url('image/cover2.png');"></div>
+    <div class="slide" style="background-image:url('image/covor3.png');"></div>
+    <div class="overlay"></div>
     <div class="hero-content">
       <h1>Welcome to FPO Bazar</h1>
-      <p>Connecting Farmers, Producers & Consumers for a Sustainable Future</p>
-      <button>Explore Now</button>
+      <p>Connecting Farmers, Producers, and Consumers for a Sustainable Future</p>
+      <button class="btn" onclick="location.href='catalogue.html'">Shop Now</button>
     </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <button class="arrow" id="prev">❮</button>
+      <button class="arrow" id="next">❯</button>
+    </div>
+
+    <!-- Dots -->
+    <div class="dots" id="dots"></div>
   </section>
 
   <section class="about">
@@ -58,7 +72,7 @@
     © 2025 FPO Bazar | All Rights Reserved
   </footer>
 
- <script src="script.js" defer></script>
+ <script src="script.js"></script>
 
 </body>
 </html>
